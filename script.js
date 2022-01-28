@@ -3,7 +3,17 @@ const liters = document.getElementById("liters");
 const percentage = document.getElementById("percentage");
 const remained = document.getElementById("remained");
 
-updateBigCup();
+//updateBigCup();
+let now = new Date();
+let hour = now.getHours();
+let minutes = now.getMinutes();
+
+// console.log(hour);
+// console.log(minutes);
+
+if (hour === 0 && minutes === 0) {
+  localStorage.clear();
+}
 
 smallCups.forEach((cup, idx) => {
   cup.addEventListener("click", () => highlightCups(idx));
@@ -19,7 +29,7 @@ function highlightCups(idx) {
   }
 
   smallCups.forEach((cup, idx2) => {
-    if (idx2 <= idx) {
+      if (idx2 <= idx) {
       cup.classList.add("full");
     } else {
       cup.classList.remove("full");
@@ -28,7 +38,6 @@ function highlightCups(idx) {
 
   updateBigCup();
 }
-
 
 function updateBigCup() {
   const fullCups = document.querySelectorAll(".cup-small.full").length;
@@ -49,21 +58,9 @@ function updateBigCup() {
   } else {
     remained.style.visibility = "visible";
     liters.innerText = `${2 - (250 * fullCups) / 1000}L`;
-  } 
+  }
 
-  //const counterCups = localStorage.setItem("counter", fullCups);
-  //let currentCounter = +localStorage.getItem("counter");
-  //console.log(currentCounter);
-  
-  // let now = new Date();
-// let hour = now.getHours();
-// let minutes = now.getMinutes();
-
-// if (hour === 0 && minutes === 0) {
-//   localStorage.clear();
-// }
+  const counterCups = localStorage.setItem("counter", fullCups);
+  var currentCounter = +localStorage.getItem("counter");
+  console.log(currentCounter);
 }
-
-
-  
-
